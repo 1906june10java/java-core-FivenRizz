@@ -15,8 +15,25 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
-	}
+		char[] acr = new char[phrase.length()];
+		char[] acroo = phrase.toCharArray();
+		int j = 1;
+		phrase.getChars(0, 1, acr, 0);
+		for (int i=0; i<acroo.length; i++) {
+			String oneletter=String.valueOf(acroo[i]);
+			if (oneletter.equals(" ")) { 
+				phrase.getChars(i+1,i+2,acr,j);
+				j+=1;
+			}
+			if (oneletter.equals("-")) {
+				phrase.getChars(i+1,i+2,acr,j);
+				j+=1;
+			}
+		}
+		String acronym=new String(acr);
+		return acronym.toUpperCase();
+		}
+		
 
 	/**
 	 * 2. Given a word, compute the scrabble score for that word.
@@ -35,8 +52,43 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		string=string.toUpperCase();
+		char[] word=string.toCharArray();
+		int score=0;
+		
+		for (char letter: word) {
+			score+= values(letter);
+		}
+		return score;
+			}
+
+		private int values(char letter) {
+			switch (letter){
+            case 'G':
+            case 'D': return 2;
+
+            case 'B':
+            case 'C':
+            case 'M':
+            case 'P': return 3;
+
+            case 'F':
+            case 'H':
+            case 'V':
+            case 'W':
+            case 'Y': return 4;
+
+            case 'K': return 5;
+
+            case 'J':
+            case 'X': return 8;
+
+            case 'Q':
+            case 'Z': return 10;
+
+            default: return 1;
 	}
+		}
 
 	/**
 	 * 3. Clean up user-entered phone numbers so that they can be sent SMS messages.
@@ -71,6 +123,13 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
+		char[] orgnumber = string.toCharArray();
+		char[] number;
+		for (int i=0;i<string.length();i++) {
+			if ()
+		}
+		
+		
 		return null;
 	}
 
