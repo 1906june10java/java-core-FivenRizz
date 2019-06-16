@@ -1,5 +1,7 @@
 package com.revature.eval.java.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -123,14 +125,46 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		char[] orgnumber = string.toCharArray();
-		char[] number;
+		String dash = "-";
+		String dot = ".";
+		String space = " ";
+		String brac = "(";
+		String bracs = ")";
+		ArrayList<Character> numbers = new ArrayList<Character>();
 		for (int i=0;i<string.length();i++) {
-			if ()
+			if (Character.isDigit(string.charAt(i))) {
+				if (!(string.charAt(i)==dot.charAt(0))) {
+					if (!(string.charAt(i)==space.charAt(0))) {
+						numbers.add(string.charAt(i));
+					}
+				}
+			}
+			if (!(Character.isDigit(string.charAt(i)))) {
+				if (!(string.charAt(i)==dash.charAt(0))) {
+					if (!(string.charAt(i)==dot.charAt(0))) {
+						if (!(string.charAt(i)==space.charAt(0))) {
+							if (!(string.charAt(i)==brac.charAt(0))) {
+								if (!(string.charAt(i)==bracs.charAt(0))) {
+									throw new IllegalArgumentException();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		if(numbers.get(0)==Character.forDigit(1, 10)) {
+			numbers.remove(0);
+		}
+		if(!(numbers.size()==10)) {
+			throw new IllegalArgumentException();
+		}
+		StringBuilder number = new StringBuilder();
+		for (Character ch : numbers) {
+			number.append(ch);
 		}
 		
-		
-		return null;
+		return number.toString();
 	}
 
 	/**
@@ -144,7 +178,21 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		Map <String, Integer> dict = new HashMap<>();
+		String [] splitt = string.split(" |\\,");
+		
+		for (String word : splitt) {
+			if (dict.containsKey(word)) {
+				int value = dict.get(word);
+				value+=1;
+				dict.put(word, value);
+			}
+			else {
+				dict.put(word, 1);
+			}
+		}
+		
+		return dict;
 	}
 
 	/**
