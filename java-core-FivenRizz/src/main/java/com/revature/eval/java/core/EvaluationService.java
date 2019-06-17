@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -268,9 +269,35 @@ public class EvaluationService {
 	 * @param input
 	 * @return
 	 */
+	
+	int power(int a, int b) {
+	
+		if(b==0) {
+			return 1;
+		}
+		 if (b%2 == 0) {
+	            return power(a, b/2)*power(a, b/2); 
+		 }
+		return a*power(a, b/2)*power(a, b/2);
+	}
+	
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+	
+		int digit = String.valueOf(input).length();
+		int clone = input;
+		int total = 0;
+		while (clone!=0) {
+			int count = clone%10;
+			total += power(count,digit);
+			clone /=10;
+		}
+		if (total==input) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -285,7 +312,19 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		List<Long> longlist = new ArrayList<Long>();
+		while (l%2==0) {
+			longlist.add(2L);
+		}
+		for (int i = 3; i < l; i++) {
+			while (l%i==0) {
+				longlist.add((long) i);
+				l /= i;
+			}
+		}
+		
+	
+		return longlist;
 	}
 
 
@@ -323,7 +362,46 @@ public class EvaluationService {
 		 */
 		public static String encode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			string = string.toLowerCase();
+			ArrayList<String> encrypted = new ArrayList<>();
+			String alphabet = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
+			ArrayList<String> order = new ArrayList<>(Arrays.asList(alphabet.split(",")));
+			String space = " ";
+			String dot = ".";
+			int count = 0;
+			for (char c : string.toCharArray()) {
+				int position = 0;
+				if (Character.isLetter(c)) {
+					position = order.indexOf(String.valueOf(c));
+					position = 25-position;
+					System.out.println(count);
+					if (count%5==0 && count!=0) {
+						encrypted.add(" ");
+						System.out.println("hey");
+						count=1;
+					}
+					else {
+						count += 1;
+					}
+					encrypted.add(order.get(position));
+				}
+				else if (Character.isDigit(c) && c!=space.charAt(0) && c!=dot.charAt(0)) {
+					position = order.indexOf(String.valueOf(c));
+					position = 25-position;
+					System.out.println(count);
+					if (count%5==0 && count!=0) {
+						encrypted.add(" ");
+						System.out.println("hey");
+						count=1;
+					}
+					else {
+						count += 1;
+					}
+					encrypted.add(Character.toString(c));
+				}
+		}
+			
+			return String.join("",encrypted);
 		}
 
 		/**
@@ -334,7 +412,22 @@ public class EvaluationService {
 		 */
 		public static String decode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			ArrayList<String> decrypted = new ArrayList<>();
+			String alphabet = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
+			ArrayList<String> order = new ArrayList<>(Arrays.asList(alphabet.split(",")));
+			String space = " ";
+			for (char c : string.toCharArray()) {
+				if(Character.isDigit(c)) {
+					decrypted.add(Character.toString(c));
+				}
+				else if (c!=space.charAt(0)) {
+					int position = 0;
+					position = order.indexOf(String.valueOf(c));
+					position = 25-position;
+					decrypted.add(order.get(position));
+				}
+			}
+			return String.join("",decrypted);
 		}
 	}
 
