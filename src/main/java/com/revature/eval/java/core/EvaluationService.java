@@ -460,6 +460,62 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
+		String string = "What is 4 minus 2?";
+		String space = " ";
+		int count=0;
+		int a = 0;
+		int b = 0;
+		int p = 0;
+		int mi = 0;
+		int mu = 0;
+		int d = 0;
+		for (char c : string.toCharArray()) {
+			if (c==space.charAt(0)) {
+				count+=1;
+			}
+			if (count==2) {
+				a = Character.getNumericValue(c);
+				count+=1;
+			}
+			if (count==3) {
+				if (String.valueOf(c)=="p") {
+					p = 1;
+					count+=1;
+				}
+				if (String.valueOf(c)=="m") {
+					mi+=1;
+					mu+=1;
+				}
+				if (String.valueOf(c)=="d") {
+					d = 1;
+					count+=2;
+				}
+				if (String.valueOf(c)=="i") {
+					mi+=1;
+					count+=2;
+				}
+				if (String.valueOf(c)=="u") {
+					mu+=1;
+					count+=1;
+				}
+			}
+			if (count==4) {
+				b = Character.getNumericValue(c);
+				count+=1;
+			}
+		}
+		if(p==1) {
+			return a+b;
+		}
+		else if (mi==2) {
+			return a-b;
+		}
+		else if (mu==2) {
+			return a*b;
+		}
+		else{
+			return a/b;
+		}
 		return 0;
 	}
 
